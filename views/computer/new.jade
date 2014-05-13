@@ -1,9 +1,26 @@
 h1 Create Computer
  form(method="POST", action="/computer/")
-  p Screen Size:
-   input#ScreenSize(type="text", ScreenSize="ScreenSize")
-  p Hard Drive Size:
-   input#HardDriveSize(type="text", ScreenSize="HardDriveSize")
-  p Memory Size:
-   input#MemorySize(type="text", ScreenSize="MemorySize")
-  p: button(type="submit") Create 
+    h5 Screen Size
+      br
+      | 11 inch
+      input(type='radio', name='ScreenSize', value='{\'ScreenSize: 11 inch\', \'price: 0\'}')
+      br
+      | 15 inch
+      input(type='radio', name='ScreenSize', value='{\'ScreenSize: 15 inch\', \'price: 200\'}')
+    h5 Hard Drive Size
+      hr
+      | 128 GB
+      input(type='radio', name='HardDriveSize', value='{\'HardDriveSize: 128 GB\', \'price: 0\'}')
+      br
+      | 246 GB
+      input(type='radio', name='HardDriveSize', value='{\'HardDriveSize: 246 GB\', \'price: 200\'}')
+    h5 Memory Size
+      hr    
+      | 8  GB
+      input(type='radio', name='MemorySize', value='{\'MemorySize: 8 GB\', \'price: 0\'}')
+      br
+      | 16 GB
+      input(type='radio', name='MemorySize', value='{\'MemorySize: 16 GB\', \'price: 200\'}')
+      hr
+      button(type='submit') Create
+      

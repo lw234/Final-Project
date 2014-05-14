@@ -34,6 +34,11 @@ body
 						//input#Price1(type='text', name='Price', Price = 'document.getElementById(total).Price',)
 					//input#Price1(id='price', type='text', name='Price', Price = 'document.getElementById(total).Price', disabled)
 					button(type='submit') Save quote
+			#qunit 
+			#qunit-fixture
+				script(src='/javascript/qunit.js')
+				link(rel='stylesheet', href='/stylesheets/qunit.css')
+				script(src='/javascript/PriceTest.js')
 		script
 			$(document).ready(function()
 			{

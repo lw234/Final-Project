@@ -1,4 +1,29 @@
-h1 Created Computer
- ul
-  each user in computer
-   li: a(href="/computer/#{user._id}") #{user._id} 
+doctype html
+html(lang="en")
+	head
+	title= "Create Computer"
+	style
+		.even {
+		background: #FFF;
+		}
+		.odd {
+		background: #e5e5e5;
+		}
+	body
+	a(href="/computer/new/") Create New Computer
+	h1 All Created Computer
+	table(border='5', style='width: 500px;')
+		tr
+			td Screen Size
+			td Hard Drive Size
+			td Memory Size
+			td Computer ID
+			td Price
+		each user, i in computer
+			tr(class=(i % 2 == 0) ? 'odd' : 'even')
+				td #{user.ScreenSize}
+				td #{user.HardDriveSize}
+				td #{user.MemorySize}
+				td
+					a(href="/computer/#{user._id}") #{user._id}
+				td #{user.Price}

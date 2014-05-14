@@ -1,26 +1,59 @@
-h1 Create Computer
- form(method="POST", action="/computer/")
-    h5 Screen Size
-      br
-      | 11 inch
-      input(type='radio', name='ScreenSize', value='{\'ScreenSize: 11 inch\', \'price: 0\'}')
-      br
-      | 15 inch
-      input(type='radio', name='ScreenSize', value='{\'ScreenSize: 15 inch\', \'price: 200\'}')
-    h5 Hard Drive Size
-      hr
-      | 128 GB
-      input(type='radio', name='HardDriveSize', value='{\'HardDriveSize: 128 GB\', \'price: 0\'}')
-      br
-      | 246 GB
-      input(type='radio', name='HardDriveSize', value='{\'HardDriveSize: 246 GB\', \'price: 200\'}')
-    h5 Memory Size
-      hr    
-      | 8  GB
-      input(type='radio', name='MemorySize', value='{\'MemorySize: 8 GB\', \'price: 0\'}')
-      br
-      | 16 GB
-      input(type='radio', name='MemorySize', value='{\'MemorySize: 16 GB\', \'price: 200\'}')
-      hr
-      button(type='submit') Create
-      
+script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', type='text/javascript')
+body
+	#wrapper
+		h1 Create Computer
+		p Create your computer from the option below
+		form(action='/computer/', method='POST')
+			fieldset#packages1
+				legend Screen Size
+				ol
+					li
+						input#ScreenSize1(type='radio', name='ScreenSize', Price ='0', value='11 Inches', checked='checked')
+						label(for='ScreenSize1') 11 Inches (Included)
+					li
+						input#ScreenSize2(type='radio', name='ScreenSize', Price ='200', value='15 Inches')
+						label(for='ScreenSize2') 15 Inches ($200)
+			fieldset#packages2
+				legend Hard Drive Size
+				ol
+					li
+						input#HardDriveSize1(type='radio', name='HardDriveSize', Price='0', value='128GB', checked='checked')
+						label(for='HardDriveSize1') 128GB (Included)
+					li
+						input#HardDriveSize2(type='radio', name='HardDriveSize', Price='200', value='256GB')
+						label(for='HardDriveSize2') 256GB ($200)
+			fieldset#packages2
+				legend Memory Size
+				ol
+					li
+						input#MemorySize1(type='radio', name='MemorySize', Price ='0', value='8GB', checked='checked')
+						label(for='MemorySize1') 8GB (Included)
+					li
+						input#MemorySize2(type='radio', name='MemorySize', Price ='200', value='16GB')
+						label(for='MemorySize2') 16GB ($200)
+						//input#Price1(type='text', name='Price', Price = 'document.getElementById(total).Price',)
+					//input#Price1(id='price', type='text', name='Price', Price = 'document.getElementById(total).Price', disabled)
+					button(type='submit') Save quote
+		script
+			$(document).ready(function()
+			{
+			var total = 1000;
+			function calcTotal()
+			{
+			$("input:checked").each(function()
+			{
+			var Price = $(this).attr("Price");
+			total += parseInt(Price);
+			});
+			}
+			calcTotal();
+			$("form").before('<p class="total">Total: <strong>' + total + '</strong></p>');
+			$(":submit").before('<p class="total">Total: <strong>' + total + '</strong></p>');
+			$("input:checkbox, input:radio").click(function()
+			{
+			total = 1000;
+			calcTotal();
+			$("p.total").html("Total: <strong>" + total + "</strong>");
+			});
+			});
+					

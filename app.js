@@ -14,50 +14,52 @@ app.configure(function() {
 	app.use(express.static(__dirname + "/public"));
 });
 
-mongoose.connect("mongodb://localhost/helloExpress");
+mongoose.connect("mongodb://localhost/CreateComputer");
 
-var UserSchema = new mongoose.Schema({
-	name: String,
-	email: String,
-	age: Number
+var ComputerSchema = new mongoose.Schema({
+	ScreenSize: String,
+	HardDriveSize: String,
+	MemorySize: String,
+	Price: Number
 }),
 
-	Users = mongoose.model('Users', UserSchema);
+	Computers = mongoose.model('Computers', ComputerSchema);
 // INDEX	
-app.get("/users", function (req, res) {
-	Users.find({}, function (err, docs) {
-		res.render('users/index', { users: docs });
+app.get("/computer", function (req, res) {
+	Computers.find({}, function (err, docs) {
+		res.render('computer/index', { computer: docs });
 	});
 });
 
 //NEW
-app.get('/users/new', function (req, res) {
-	res.render("users/new");
+app.get('/computer/new', function (req, res) {
+	res.render("computer/new");
 });
 
 //CREATE
-app.post('/users', function (req, res) {
+app.post('/computer', function (req, res) {
 	var b = req.body;
-	new Users({
-		name: b.name,
-		email: b.email,
-		age: b.age
+	new Computers({
+		ScreenSize: b.ScreenSize,
+		HardDriveSize: b.HardDriveSize,
+		MemorySize: b.MemorySize,
+		Price: b.Price
 	}).save(function (err, user) {
 		if (err) res.json(err);
-		res.redirect('/users/' + user.name);
+		res.redirect('/computer/' + user._id);
 	});
 });
 
-app.param('name', function (req, res, next, name) {
-	Users.find({ name: name }, function (err, docs) {
+app.param('_id', function (req, res, next, _id) {
+	Computers.find({ _id: _id }, function (err, docs) {
 		req.user = docs[0];
 		next();
 	});
 });
 
 // SHOW
-app.get('/users/:name', function (req, res) {
-	res.render("users/show", { user: req.user });
+app.get('/computer/:_id', function (req, res) {
+	res.render("computer/show", { user: req.user });
 });
 
 app.get('/', function(req, res){
@@ -67,17 +69,4 @@ app.get('/', function(req, res){
 http.createServer(app).listen(app.get('port'), function(){
 	console.log("Express server listening on port " + app.get('port'));
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
